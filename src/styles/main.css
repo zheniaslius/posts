@@ -1,0 +1,32 @@
+main {
+    display: flex;
+}
+
+.posts-wrp {
+    width: 70vw;
+}
+
+.controls {
+    padding: 0 2em;
+    width: 30vw;
+}
+
+.tags {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-gap: 1em;
+} 
+
+.tag {
+    cursor: pointer;
+    text-align: center;
+    color: white;
+    background-color: #99c0ff;
+    padding: .5em 1em;
+    margin-bottom: 1em;
+}
+
+.tag.selected, .tag:hover {
+    background-color: #6984af;
+}
