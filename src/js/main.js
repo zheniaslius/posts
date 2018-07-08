@@ -3,21 +3,27 @@ const descending = document.querySelector('.descending');
 const postsContainer = document.querySelector('.posts-wrp');
 const tagsContainer = document.querySelector('.tags');
 const searchBtn = document.querySelector('.search');
+const clearBtn = document.querySelector('.clear');
 
 tagsContainer.addEventListener('click', (e) => {
   let tagValue = e.target.innerHTML;
   if (e.target.classList.contains('tag'))
     e.target.classList.toggle('selected');
-})
+});
+
+clearBtn.addEventListener('click', (e) => {
+  const tags = [...document.querySelectorAll('.tag')];
+
+});
 
 const getPosts = async () => {
   let response = await fetch('https://api.myjson.com/bins/152f9j');
   let posts = await response.json();
   return posts.data;
-};
+}
 
 const displayPosts = posts => {
-  let output;
+  let output = '';
   posts.forEach(post => {
     output += `
       <h1>${post.title}</h1>
@@ -32,7 +38,7 @@ const displayPosts = posts => {
 }
 
 const displayTags = tags => {
-  let output = ``;
+  let output = '';
   tags.forEach(tag => {
     output += `<div class='tag'>${tag}</div>`
   });
@@ -41,44 +47,46 @@ const displayTags = tags => {
 
 const sortDateByDesc = posts => {
   let newPosts = [...posts];
-  newPosts = newPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  newPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   displayPosts(newPosts);
 }
 
+const dateAsc = (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+
 const sortDateByAsc = posts => {
   let newPosts = [...posts];
-  newPosts = newPosts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  newPosts.sort(dateAsc);
   displayPosts(newPosts);
 }
 
 const getUniqueTags = posts => {
   let allTags = [].concat(...(posts.map(item => [...item.tags])));
-  let uniqueTags = [... new Set(allTags)];
+  let uniqueTags = [...new Set(allTags)];
   return uniqueTags;
 }
 
-const sameTagsCount = (post, selectedTags) => {
+const sameTagsCount = (post) => {
+  let selectedTags = [...document.querySelectorAll('.tag.selected')];
+  selectedTags = selectedTags.map(element => element.innerHTML);
+
   let tagsCount = 0;
   post.tags.forEach(tag => {
     if (selectedTags.includes(tag))
-      count++;
+    tagsCount++;
   });
-  console.log(`post tags = ${post.tags}, selectedTags = ${selectedTags}, count = ${tagsCount}`);
   return tagsCount;
 }
 
 const sortByTags = posts => {
-  let selectedTags = [...(document.querySelectorAll('.tag.selected'))];
-  selectedTags = selectedTags.map(element => element.innerHTML);
-
-  let sortedPosts = [...posts];
-  // Object.keys(sortedPosts).sort((a, b) => {
-  //   return sortByTags(a, selectedTags) - sortByTags(b, selectedTags);
-  // })
+  let sortedPosts = Array.from(posts);
+  sortedPosts.sort((a, b) => {
+    dateDiff = sameTagsCount(b) - sameTagsCount(a);
+    return (dateDiff == 0) ? dateAsc : dateDiff;
+  })
   displayPosts(sortedPosts);
 }
 
-const handleMenu = (posts) => {
+const handleMenu = posts => {
   ascending.addEventListener('click', () => sortDateByAsc(posts));
   descending.addEventListener('click', () => sortDateByDesc(posts));
 
