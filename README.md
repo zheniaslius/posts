@@ -1,3 +1,3 @@
-# Binary Studio Academy | Task 3
+# Binary Studio Academy | DOM API / Browser API
 
 https://zheniaslius.github.io/posts/
