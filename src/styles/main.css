@@ -45,7 +45,7 @@ main .container {
 .post {
     position: relative;
     margin: 0 1.5rem 3rem 0;
-    width: 300px;
+    width: 340px;
     display: flex;
     flex-direction: column;
     align-items: center;

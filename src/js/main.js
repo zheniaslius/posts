@@ -57,6 +57,7 @@ const displayPosts = posts => {
       displayTenPosts(tenPosts);
     }
   });
+  handlePostDelete();
   return posts;
 }
 
