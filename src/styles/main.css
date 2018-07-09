@@ -120,8 +120,9 @@ main .container {
     text-align: center;
     color: white;
     background-color: #99c0ff;
-    padding: .5em 1em;
+    padding: .6em 1em;
     margin-bottom: 1em;
+    border-radius: 40px;
 }
 
 .tag.selected, .controls .tag:hover {
