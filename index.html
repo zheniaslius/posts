@@ -6,21 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Task 3</title>
+    <link rel="stylesheet" href="src/styles/reset.css">
     <link rel="stylesheet" href="src/styles/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,500,600" rel="stylesheet">
     <script src="src/js/main.js" defer></script>
 </head>
 
 <body>
     <main>
-        <div class="posts-wrp">
-        </div>
-        <div class="controls">
-            <button class="ascending">Ascending</button>
-            <button class="descending">Descending</button>
-            <div class="tags"></div>
-            <button class="search">Search</button>
-            <button class="clear">Clear</button>
-            <input type="text" id="search">
+        <div class="container">
+            <div class="posts-wrp"></div>
+            <div class="controls">
+                <div class="sorting">
+                    <h2 class="sort">Sort by</h2>
+                    <button class="ascending">Ascending</button>
+                    <button class="descending">Descending</button>
+                </div>
+
+                <div class="tag-wrp">
+                    <h2>Tags</h2>
+                    <div class="tags"></div>
+                </div>
+
+                <div class="search-wrp">
+                    <button class="search">Search</button>
+                    <input type="text" id="search" placeholder="What are you looking for?" onfocus="this.placeholder = ''">
+
+                    <button type="checkbox" id="onlyTen">10 posts</button>
+                </div>
+            </div>
         </div>
     </main>
 

@@ -3,8 +3,8 @@ const descending = document.querySelector('.descending');
 const postsContainer = document.querySelector('.posts-wrp');
 const tagsContainer = document.querySelector('.tags');
 const searchBtn = document.querySelector('.search');
-const clearBtn = document.querySelector('.clear');
 const search = document.querySelector('#search');
+const showTen = document.querySelector('#onlyTen');
 
 tagsContainer.addEventListener('click', (e) => {
   let tag = e.target;
@@ -14,42 +14,49 @@ tagsContainer.addEventListener('click', (e) => {
   }
 });
 
-clearBtn.addEventListener('click', (e) => {
-  const tags = [...document.querySelectorAll('.tag')];
-});
-
 const getPosts = async () => {
   let response = await fetch('https://api.myjson.com/bins/152f9j');
   let posts = await response.json();
   return posts.data;
 }
 
-const displayPosts = posts => {
+const displayTenPosts = (posts, addable=true) => {
   let output = '';
   posts.forEach(post => {
     output += `
       <div class="post">
+        <img src="${post.image}" class="post-img"></img>
         <h1>${post.title}</h1>
         <span>${post.description}</span>
-        <img src="${post.image}"></img>
-        <img>${post.image}</img>
-        <span>${post.createdAt}</span>
-        <ul>${post.tags.map(tag => `<li>${tag}</li>`)}</ul>
-        <button id="delete-post">Delete</button>
-      </div>
-      `;
+        <div class="date">
+          <i class="material-icons">calendar_today</i>
+          ${new Date(post.createdAt).toLocaleDateString('en-US')}
+        </div>
+        <ul>${post.tags.map(tag => `<li class="tag">${tag}</li>`).toString().replace(/,/g, '')}</ul>
+        <i class="material-icons" id="delete-post">close</i>
+      </div>`;
   });
-  postsContainer.innerHTML = output;
 
-  document.addEventListener('scroll', event => {
-    let element = event.target;
-  
-    var scrollTop = element.scrollTop || document.documentElement.scrollTop;
-    if (scrollTop + window.innerHeight >= document.body.offsetHeight) {
-      postsContainer.innerHTML += output;
+  (addable) ? postsContainer.innerHTML += output
+  : postsContainer.innerHTML = output;
+}
+
+const displayPosts = posts => {
+  let counter = 0;
+  postsContainer.innerHTML = '';
+  displayTenPosts(posts.slice(counter, counter += 10));
+
+  showTen.addEventListener('click', () => {
+    displayTenPosts(posts.slice(0, 10), false);
+  })
+
+  document.addEventListener('scroll', () => {
+    let scrollTop = document.documentElement.scrollTop;
+    if (Math.ceil(scrollTop + window.innerHeight) >= document.body.offsetHeight) {
+      let tenPosts = posts.slice(counter, counter += 10);
+      displayTenPosts(tenPosts);
     }
   });
-  
   return posts;
 }
 
@@ -83,7 +90,7 @@ const getUniqueTags = posts => {
   return uniqueTags;
 }
 
-const sameTagsCount = (post) => {
+const sameTagsCount = post => {
   let selectedTags = [...document.querySelectorAll('.tag.selected')];
   selectedTags = selectedTags.map(element => element.innerHTML);
 

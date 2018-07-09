@@ -1,20 +1,117 @@
+body {
+    font-family: "Lato", sans-serif;
+}
+
+h1 {
+    font: 1.3rem "Lato";
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+button {
+    background-color: #016FB9;
+    border: none;
+    padding: 1rem 2rem;
+    color: white;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: .9em;
+    font-weight: bold;
+}
+
 main {
     display: flex;
 }
 
-.posts-wrp {
-    width: 70vw;
+main .container {
+    width: 80%;
+    margin: 2rem auto;
+    display: flex;
+    justify-content: space-between;
 }
 
-.controls {
-    padding: 0 2em;
-    width: 30vw;
+.posts-wrp {
+    width: 60%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.post {
+    position: relative;
+    margin: 0 1.5rem 3rem 0;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 5px 14px -2px rgba(0, 0, 0, 0.15);
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.post:hover {
+    box-shadow: 0px 10px 20px -2px rgba(0, 0, 0, 0.15);
+}
+
+.post > * {
+    margin-bottom: .6em;
+}
+
+.post h1 {
+    text-align: center;
+}
+
+.post-img {
+    width: 100%;
+    height: 137px;
+    object-fit: cover;
+}
+
+.post .date {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    color: #969696;
+}
+
+.date i {
+    margin-right: 5px;
+    font-size: inherit;
+}
+
+.post ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    margin-bottom: 0;
+}
+
+.post h1, .post span {
+    padding: 0 1.7em;
+}
+
+#delete-post {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+#delete-post:hover {
+    color: white;
 }
 
 .tags {
     margin-top: 1rem;
     display: grid;
-    grid-template-columns: repeat(5, auto);
+    grid-template-columns: repeat(auto-fill, 90px);
     grid-gap: 1em;
 } 
 
@@ -27,6 +124,35 @@ main {
     margin-bottom: 1em;
 }
 
-.tag.selected, .tag:hover {
+.tag.selected, .controls .tag:hover {
     background-color: #6984af;
+}
+
+.sorting {
+    margin-bottom: 3rem;
+}
+
+.tag-wrp {
+    margin-bottom: 3rem;
+}
+
+.search-wrp {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.search-wrp input {
+    border: none;
+    border-bottom: 1px solid #e2e2e2;
+    padding-left: 10px;
+    font-size: 1em
+}
+
+#onlyTen {
+    background-color: #80DED9;
+    margin-left: 3rem;
+}
+
+#onlyTen:hover {
+    background-color: #5EA29E;
 }
